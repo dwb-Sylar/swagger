@@ -1,0 +1,798 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "description" : "校园-电子巡更接口",
+    "version" : "1.0.0",
+    "title" : "schoolPatrol"
+  },
+  "host" : "192.168.20.198:3000",
+  "basePath" : "/api",
+  "produces" : [ "application/json" ],
+  "securityDefinitions" : {
+    "APIKey" : {
+      "type" : "apiKey",
+      "name" : "Authorization",
+      "in" : "header"
+    }
+  },
+  "security" : [ {
+    "APIKey" : [ ]
+  } ],
+  "tags" : [ {
+    "name" : "task",
+    "description" : "任务管理"
+  }, {
+    "name" : "record",
+    "description" : "记录管理"
+  }, {
+    "name" : "message",
+    "description" : "消息管理"
+  } ],
+  "paths" : {
+    "/patrol/task" : {
+      "get" : {
+        "tags" : [ "task" ],
+        "summary" : "获取任务列表",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "X-BSC-CUR",
+          "in" : "query",
+          "description" : "当前页码",
+          "type" : "number"
+        }, {
+          "name" : "X-BSC-LIMIT",
+          "in" : "query",
+          "description" : "每页数量",
+          "type" : "number"
+        }, {
+          "name" : "taskTitle",
+          "in" : "query",
+          "description" : "任务名称",
+          "type" : "string"
+        }, {
+          "name" : "startTime",
+          "type" : "string",
+          "format" : "date-time",
+          "description" : "开始时间",
+          "in" : "query"
+        }, {
+          "name" : "endTime",
+          "type" : "string",
+          "format" : "date-time",
+          "description" : "结束时间",
+          "in" : "query"
+        }, {
+          "name" : "userName",
+          "type" : "string",
+          "format" : "uri",
+          "description" : "巡更人",
+          "in" : "query"
+        }, {
+          "name" : "org",
+          "type" : "string",
+          "description" : "机构id",
+          "in" : "query"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "查询成功",
+            "headers" : {
+              "X-BSC-PAGES" : {
+                "type" : "integer",
+                "description" : "总页数"
+              },
+              "X-BSC-COUNTS" : {
+                "type" : "integer",
+                "description" : "总数"
+              },
+              "X-BSC-CUR" : {
+                "type" : "integer",
+                "description" : "当前页"
+              },
+              "X-BSC-LIMIT" : {
+                "type" : "integer",
+                "description" : "每页数量"
+              }
+            },
+            "schema" : {
+              "type" : "object",
+              "properties" : {
+                "success" : {
+                  "type" : "boolean",
+                  "default" : true
+                },
+                "result" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/definitions/Task"
+                  }
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "服务端错误",
+            "schema" : {
+              "$ref" : "#/definitions/Error500"
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "task" ],
+        "summary" : "新增任务",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "body",
+          "in" : "body",
+          "description" : "任务数据",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/Task"
+          }
+        } ],
+        "responses" : {
+          "201" : {
+            "description" : "新增成功",
+            "headers" : {
+              "location" : {
+                "type" : "string",
+                "description" : "/patrol/task/{id}"
+              }
+            }
+          },
+          "500" : {
+            "description" : "服务端错误",
+            "schema" : {
+              "$ref" : "#/definitions/Error500"
+            }
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "task" ],
+        "summary" : "批量删除",
+        "description" : "批量删除",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "x-bsc-ids",
+          "in" : "header",
+          "description" : "id集合",
+          "type" : "string",
+          "required" : true
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "删除成功",
+            "schema" : {
+              "type" : "object",
+              "properties" : {
+                "success" : {
+                  "type" : "boolean",
+                  "default" : true
+                },
+                "result" : {
+                  "type" : "array",
+                  "items" : {
+                    "type" : "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/patrol/task/{id}" : {
+      "put" : {
+        "tags" : [ "task" ],
+        "summary" : "修改任务",
+        "description" : "修改任务",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "type" : "string",
+          "required" : true
+        }, {
+          "name" : "body",
+          "in" : "body",
+          "schema" : {
+            "$ref" : "#/definitions/Task"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "修改成功"
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "task" ],
+        "summary" : "删除单条任务",
+        "description" : "删除单条任务",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "type" : "string",
+          "required" : true
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "删除成功"
+          }
+        }
+      }
+    },
+    "/patrol/record" : {
+      "get" : {
+        "tags" : [ "record" ],
+        "summary" : "获取记录列表",
+        "description" : "获取记录列表",
+        "parameters" : [ {
+          "name" : "X-BSC-CUR",
+          "in" : "query",
+          "description" : "当前页码",
+          "type" : "integer"
+        }, {
+          "name" : "X-BSC-LIMIT",
+          "in" : "query",
+          "description" : "每页数量",
+          "type" : "integer"
+        }, {
+          "name" : "name",
+          "type" : "string",
+          "description" : "任务名称",
+          "in" : "query"
+        }, {
+          "name" : "userName",
+          "type" : "string",
+          "format" : "uri",
+          "in" : "query"
+        }, {
+          "name" : "startTime",
+          "type" : "string",
+          "format" : "date-time",
+          "description" : "开始时间",
+          "in" : "query"
+        }, {
+          "name" : "endTime",
+          "type" : "string",
+          "format" : "date-time",
+          "description" : "结束时间",
+          "in" : "query"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "查询结果",
+            "headers" : {
+              "X-BSC-PAGES" : {
+                "type" : "integer",
+                "description" : "总页数"
+              },
+              "X-BSC-COUNTS" : {
+                "type" : "integer",
+                "description" : "总数"
+              },
+              "X-BSC-CUR" : {
+                "type" : "integer",
+                "description" : "当前页"
+              },
+              "X-BSC-LIMIT" : {
+                "type" : "integer",
+                "description" : "每页数量"
+              }
+            },
+            "schema" : {
+              "type" : "object",
+              "properties" : {
+                "success" : {
+                  "type" : "boolean",
+                  "default" : true
+                },
+                "result" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/definitions/Record"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "record" ],
+        "summary" : "批量删除巡更记录",
+        "description" : "批量删除巡更记录",
+        "parameters" : [ {
+          "name" : "x-bsc-ids",
+          "in" : "header",
+          "type" : "string",
+          "description" : "记录ID集合"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "删除成功",
+            "schema" : {
+              "type" : "object",
+              "properties" : {
+                "success" : {
+                  "type" : "boolean",
+                  "default" : true
+                },
+                "result" : {
+                  "type" : "array",
+                  "items" : {
+                    "type" : "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/patrol/recordInfo/{id}" : {
+      "get" : {
+        "tags" : [ "record" ],
+        "description" : "获取记录详细信息",
+        "summary" : "获取记录详细信息",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "type" : "string",
+          "required" : true
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "记录详细信息",
+            "schema" : {
+              "type" : "object",
+              "properties" : {
+                "userName" : {
+                  "type" : "string",
+                  "format" : "uri",
+                  "description" : "巡更人员名字"
+                },
+                "userImg" : {
+                  "type" : "string",
+                  "description" : "巡更人员照片"
+                },
+                "taskTitle" : {
+                  "type" : "string",
+                  "description" : "任务名称"
+                },
+                "taskStatus" : {
+                  "type" : "integer",
+                  "minimum" : 1,
+                  "maximum" : 100,
+                  "description" : "巡更记录状态"
+                },
+                "pointList" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/definitions/Point"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/patrol/message" : {
+      "get" : {
+        "tags" : [ "message" ],
+        "description" : "获取消息列表",
+        "summary" : "获取消息列表",
+        "parameters" : [ {
+          "name" : "X-BSC-CUR",
+          "type" : "integer",
+          "description" : "第几页",
+          "in" : "header"
+        }, {
+          "name" : "X-BSC-LIMIT",
+          "type" : "integer",
+          "description" : "每页数量",
+          "in" : "header"
+        }, {
+          "name" : "title",
+          "type" : "string",
+          "description" : "消息标题",
+          "in" : "query"
+        }, {
+          "name" : "org",
+          "type" : "string",
+          "description" : "机构",
+          "in" : "query"
+        }, {
+          "name" : "date",
+          "type" : "string",
+          "format" : "date",
+          "description" : "日期",
+          "in" : "query"
+        }, {
+          "name" : "startTime",
+          "type" : "string",
+          "format" : "time",
+          "description" : "开始时间",
+          "in" : "query"
+        }, {
+          "name" : "endTime",
+          "type" : "string",
+          "format" : "time",
+          "description" : "结束时间",
+          "in" : "query"
+        }, {
+          "name" : "sender",
+          "type" : "string",
+          "format" : "uri",
+          "description" : "发件人",
+          "in" : "query"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "消息列表",
+            "headers" : {
+              "X-BSC-CUR" : {
+                "type" : "integer",
+                "description" : "当前页"
+              },
+              "X-BSC-PAGES" : {
+                "type" : "integer",
+                "description" : "总页数"
+              },
+              "X-BSC-COUNTS" : {
+                "type" : "integer",
+                "description" : "总数量"
+              },
+              "X-BSC-LIMIT" : {
+                "type" : "integer",
+                "description" : "每页数量"
+              }
+            },
+            "schema" : {
+              "type" : "object",
+              "properties" : {
+                "sucess" : {
+                  "type" : "boolean",
+                  "default" : true
+                },
+                "result" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/definitions/Message"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "message" ],
+        "summary" : "创建新消息",
+        "description" : "电子巡更创建新消息",
+        "parameters" : [ {
+          "name" : "body",
+          "in" : "body",
+          "description" : "消息数据",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/Message"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "数据创建成功",
+            "headers" : {
+              "loction" : {
+                "type" : "string",
+                "description" : "/patrol/message/id"
+              }
+            }
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "message" ],
+        "summary" : "批量删除信息",
+        "description" : "批量删除信息",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "x-bsc-ids",
+          "in" : "header",
+          "description" : "id集合 id1,id2,id3,",
+          "type" : "string",
+          "required" : true
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "schema" : {
+              "type" : "object",
+              "properties" : {
+                "success" : {
+                  "type" : "boolean",
+                  "default" : true,
+                  "description" : "删除成功"
+                },
+                "result" : {
+                  "type" : "array",
+                  "description" : "已删除id集合",
+                  "items" : {
+                    "type" : "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/patrol/message/{id}" : {
+      "get" : {
+        "tags" : [ "message" ],
+        "summary" : "获取单条挑信息的详细内容",
+        "description" : "获取单条挑信息的详细内容",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "type" : "string",
+          "required" : true
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "schema" : {
+              "type" : "object",
+              "properties" : {
+                "success" : {
+                  "type" : "boolean",
+                  "default" : true
+                },
+                "result" : {
+                  "$ref" : "#/definitions/Messageinfo"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions" : {
+    "Task" : {
+      "type" : "object",
+      "description" : "任务数据",
+      "properties" : {
+        "_id" : {
+          "type" : "string",
+          "description" : "任务Id"
+        },
+        "taskTitle" : {
+          "type" : "string",
+          "description" : "任务名称"
+        },
+        "taskType" : {
+          "type" : "string",
+          "description" : "任务类型"
+        },
+        "org" : {
+          "type" : "string",
+          "description" : "所属机构"
+        },
+        "userName" : {
+          "type" : "string",
+          "description" : "巡更人"
+        },
+        "startTime" : {
+          "type" : "string",
+          "format" : "date-time",
+          "description" : "开始时间"
+        },
+        "endTime" : {
+          "type" : "string",
+          "format" : "date-time",
+          "description" : "结束时间"
+        },
+        "rangTime" : {
+          "type" : "number",
+          "minimum" : 1,
+          "maximum" : 60,
+          "default" : 1
+        },
+        "points" : {
+          "type" : "array",
+          "items" : {
+            "type" : "object",
+            "description" : "点位数据",
+            "properties" : {
+              "pointId" : {
+                "type" : "string",
+                "description" : "点位id"
+              },
+              "pointName" : {
+                "type" : "string",
+                "description" : "点位名称"
+              },
+              "patrolTime" : {
+                "type" : "string",
+                "format" : "date-time",
+                "description" : "巡逻时间"
+              }
+            }
+          }
+        }
+      }
+    },
+    "Record" : {
+      "type" : "object",
+      "description" : "巡更记录",
+      "properties" : {
+        "_id" : {
+          "type" : "string",
+          "description" : "记录Id"
+        },
+        "taskTitle" : {
+          "type" : "string",
+          "description" : "任务名称"
+        },
+        "org" : {
+          "type" : "string",
+          "description" : "机构名称"
+        },
+        "userName" : {
+          "type" : "string",
+          "format" : "uri",
+          "description" : "巡更人员"
+        },
+        "taskType" : {
+          "type" : "string",
+          "description" : "任务模式"
+        },
+        "startTime" : {
+          "type" : "string",
+          "format" : "date-time",
+          "description" : "开始时间"
+        },
+        "endTime" : {
+          "type" : "string",
+          "format" : "date-time",
+          "description" : "结束时间"
+        },
+        "taskStatus" : {
+          "type" : "number",
+          "minimum" : 0,
+          "maximum" : 100,
+          "description" : "巡更状态"
+        },
+        "rangTime" : {
+          "type" : "number",
+          "description" : "浮动时间"
+        }
+      }
+    },
+    "Point" : {
+      "type" : "object",
+      "description" : "点位详细信息",
+      "properties" : {
+        "_id" : {
+          "type" : "string",
+          "description" : "点位id"
+        },
+        "name" : {
+          "type" : "string",
+          "description" : "点位名称"
+        },
+        "time" : {
+          "type" : "string",
+          "format" : "date-time",
+          "description" : "点位巡更时间"
+        },
+        "status" : {
+          "type" : "string",
+          "description" : "点位巡更状态"
+        }
+      }
+    },
+    "Message" : {
+      "type" : "object",
+      "description" : "消息数据",
+      "properties" : {
+        "_id" : {
+          "type" : "string",
+          "description" : "消息id"
+        },
+        "sender" : {
+          "type" : "string",
+          "description" : "发件人"
+        },
+        "senderImg" : {
+          "type" : "string",
+          "description" : "发件人照片"
+        },
+        "title" : {
+          "type" : "string",
+          "description" : "消息标题"
+        },
+        "content" : {
+          "type" : "string",
+          "description" : "消息内容"
+        },
+        "receiver" : {
+          "type" : "array",
+          "description" : "消息收件人",
+          "items" : {
+            "type" : "string"
+          }
+        },
+        "creatTime" : {
+          "type" : "string",
+          "format" : "date-time",
+          "description" : "创建时间"
+        }
+      }
+    },
+    "Messageinfo" : {
+      "type" : "object",
+      "description" : "消息数据",
+      "properties" : {
+        "_id" : {
+          "type" : "string",
+          "description" : "消息id"
+        },
+        "sender" : {
+          "type" : "string",
+          "description" : "发件人"
+        },
+        "senderImg" : {
+          "type" : "string",
+          "description" : "发件人照片"
+        },
+        "title" : {
+          "type" : "string",
+          "description" : "消息标题"
+        },
+        "content" : {
+          "type" : "string",
+          "description" : "消息内容"
+        },
+        "receiver" : {
+          "type" : "array",
+          "description" : "消息收件人",
+          "items" : {
+            "type" : "string"
+          }
+        },
+        "creatTime" : {
+          "type" : "string",
+          "format" : "date-time",
+          "description" : "创建时间"
+        },
+        "messageImg" : {
+          "type" : "string",
+          "description" : "消息截图"
+        },
+        "messageRts" : {
+          "type" : "string"
+        }
+      }
+    },
+    "Error500" : {
+      "type" : "object",
+      "description" : "请求失败返回",
+      "properties" : {
+        "code" : {
+          "type" : "number",
+          "description" : "请求失败错误号"
+        },
+        "message" : {
+          "type" : "string",
+          "description" : "失败原因"
+        }
+      }
+    }
+  }
+}
