@@ -1,12 +1,12 @@
 {
   "swagger" : "2.0",
   "info" : {
-    "description" : "校园-电子巡更接口",
+    "description" : "校园-电子巡更模块接口",
     "version" : "1.0.0",
     "title" : "schoolPatrol"
   },
   "host" : "192.168.20.198:3000",
-  "basePath" : "/v1/api",
+  "basePath" : "/api",
   "produces" : [ "application/json" ],
   "securityDefinitions" : {
     "APIKey" : {
@@ -27,6 +27,9 @@
   }, {
     "name" : "message",
     "description" : "消息管理"
+  }, {
+    "name" : "user",
+    "description" : "人员巡更"
   } ],
   "paths" : {
     "/patrol/task" : {
@@ -560,6 +563,27 @@
           }
         }
       }
+    },
+    "/patrol/userInfo/{id}" : {
+      "get" : {
+        "tags" : [ "user" ],
+        "summary" : "获取人员巡更详情",
+        "description" : "获取人员巡更详情",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "type" : "string",
+          "required" : true
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "schema" : {
+              "$ref" : "#/definitions/UserInfo"
+            }
+          }
+        }
+      }
     }
   },
   "definitions" : {
@@ -777,6 +801,62 @@
         },
         "messageRts" : {
           "type" : "string"
+        }
+      }
+    },
+    "UserInfo" : {
+      "type" : "object",
+      "description" : "人员巡更详情",
+      "properties" : {
+        "_id" : {
+          "type" : "string",
+          "description" : "任务id"
+        },
+        "userName" : {
+          "type" : "string",
+          "description" : "人员名字"
+        },
+        "userImg" : {
+          "type" : "string",
+          "description" : "人员照片"
+        },
+        "taskStatus" : {
+          "type" : "integer",
+          "description" : "任务状态"
+        },
+        "taskTitle" : {
+          "type" : "string",
+          "description" : "任务名称"
+        },
+        "taskType" : {
+          "type" : "string",
+          "description" : "任务模式"
+        },
+        "pointList" : {
+          "type" : "array",
+          "items" : {
+            "type" : "object",
+            "properties" : {
+              "pointName" : {
+                "type" : "string",
+                "description" : "点位名称"
+              },
+              "pointTime" : {
+                "type" : "string",
+                "format" : "date-time",
+                "description" : "巡更固定时间"
+              },
+              "clockTime" : {
+                "type" : "string",
+                "format" : "date-time",
+                "description" : "打卡时间"
+              },
+              "clockStatus" : {
+                "type" : "string",
+                "description" : "巡更点打卡状态"
+              }
+            }
+          }
         }
       }
     },
