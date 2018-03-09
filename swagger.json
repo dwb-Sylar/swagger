@@ -564,7 +564,7 @@
         }
       }
     },
-    "/patrol/userInfo/{id}" : {
+    "/patrol/user/{id}" : {
       "get" : {
         "tags" : [ "user" ],
         "summary" : "获取人员巡更详情",
