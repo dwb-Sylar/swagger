@@ -151,8 +151,8 @@
       },
       "delete" : {
         "tags" : [ "task" ],
-        "summary" : "批量删除",
-        "description" : "批量删除",
+        "summary" : "批量删除巡更任务",
+        "description" : "批量删除巡更任务",
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "x-bsc-ids",
