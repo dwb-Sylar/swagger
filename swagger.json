@@ -6,7 +6,7 @@
     "title" : "schoolPatrol"
   },
   "host" : "192.168.20.198:3000",
-  "basePath" : "/api",
+  "basePath" : "/v1/api",
   "produces" : [ "application/json" ],
   "securityDefinitions" : {
     "APIKey" : {
