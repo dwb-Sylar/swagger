@@ -564,6 +564,34 @@
         }
       }
     },
+    "/patrol/user" : {
+      "get" : {
+        "tags" : [ "user" ],
+        "summary" : "获取巡更人员列表",
+        "description" : "获取巡更人员列表",
+        "parameters" : [ {
+          "name" : "orgId",
+          "in" : "query",
+          "type" : "string",
+          "description" : "机构ID"
+        }, {
+          "name" : "x-bsc-cur",
+          "type" : "integer",
+          "in" : "header",
+          "description" : "请求页面"
+        }, {
+          "name" : "x-bsc-limit",
+          "type" : "integer",
+          "in" : "header",
+          "description" : "每页数量"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          }
+        }
+      }
+    },
     "/patrol/user/{id}" : {
       "get" : {
         "tags" : [ "user" ],
