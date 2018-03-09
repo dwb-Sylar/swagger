@@ -353,38 +353,29 @@
             "schema" : {
               "type" : "object",
               "properties" : {
-                "success" : {
-                  "type" : "boolean",
-                  "description" : "请求成功"
+                "userName" : {
+                  "type" : "string",
+                  "format" : "uri",
+                  "description" : "巡更人员名字"
                 },
-                "result" : {
-                  "type" : "object",
-                  "properties" : {
-                    "userName" : {
-                      "type" : "string",
-                      "format" : "uri",
-                      "description" : "巡更人员名字"
-                    },
-                    "userImg" : {
-                      "type" : "string",
-                      "description" : "巡更人员照片"
-                    },
-                    "taskTitle" : {
-                      "type" : "string",
-                      "description" : "任务名称"
-                    },
-                    "taskStatus" : {
-                      "type" : "integer",
-                      "minimum" : 1,
-                      "maximum" : 100,
-                      "description" : "巡更记录状态"
-                    },
-                    "pointList" : {
-                      "type" : "array",
-                      "items" : {
-                        "$ref" : "#/definitions/Point"
-                      }
-                    }
+                "userImg" : {
+                  "type" : "string",
+                  "description" : "巡更人员照片"
+                },
+                "taskTitle" : {
+                  "type" : "string",
+                  "description" : "任务名称"
+                },
+                "taskStatus" : {
+                  "type" : "integer",
+                  "minimum" : 1,
+                  "maximum" : 100,
+                  "description" : "巡更记录状态"
+                },
+                "pointList" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/definitions/Point"
                   }
                 }
               }
@@ -576,7 +567,7 @@
     "/patrol/user" : {
       "get" : {
         "tags" : [ "user" ],
-        "summary" : "获取巡更人员列表",
+        "summary" : "巡更人员列表",
         "description" : "获取巡更人员列表",
         "parameters" : [ {
           "name" : "orgId",
@@ -596,7 +587,22 @@
         } ],
         "responses" : {
           "200" : {
-            "description" : "OK"
+            "description" : "OK",
+            "schema" : {
+              "type" : "object",
+              "properties" : {
+                "success" : {
+                  "type" : "boolean",
+                  "default" : true
+                },
+                "result" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/definitions/userPatrol"
+                  }
+                }
+              }
+            }
           }
         }
       }
@@ -616,7 +622,19 @@
           "200" : {
             "description" : "OK",
             "schema" : {
-              "$ref" : "#/definitions/UserInfo"
+              "type" : "object",
+              "properties" : {
+                "success" : {
+                  "type" : "boolean",
+                  "default" : true
+                },
+                "result" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/definitions/UserInfo"
+                  }
+                }
+              }
             }
           }
         }
@@ -838,6 +856,52 @@
         },
         "messageRts" : {
           "type" : "string"
+        }
+      }
+    },
+    "userPatrol" : {
+      "type" : "object",
+      "description" : "人员巡更情况",
+      "properties" : {
+        "userName" : {
+          "type" : "string",
+          "description" : "人员姓名"
+        },
+        "userImg" : {
+          "type" : "string",
+          "description" : "人员头像照片"
+        },
+        "taskStatus" : {
+          "type" : "integer",
+          "description" : "巡更任务状态"
+        },
+        "curPoint" : {
+          "type" : "string",
+          "description" : "当前巡更点位"
+        },
+        "nextPoint" : {
+          "type" : "string",
+          "description" : "下个巡更点位"
+        },
+        "devStatus" : {
+          "type" : "string",
+          "description" : "设备状态"
+        },
+        "msgCount" : {
+          "type" : "integer",
+          "description" : "消息数量"
+        },
+        "passCount" : {
+          "type" : "integer",
+          "description" : "已巡更数量"
+        },
+        "laterCount" : {
+          "type" : "integer",
+          "description" : "巡更超时数量"
+        },
+        "futureCount" : {
+          "type" : "integer",
+          "description" : "未巡更点位数量"
         }
       }
     },
