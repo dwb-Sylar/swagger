@@ -336,7 +336,7 @@
         }
       }
     },
-    "/patrol/recordInfo/{id}" : {
+    "/patrol/record/{id}" : {
       "get" : {
         "tags" : [ "record" ],
         "description" : "获取记录详细信息",
