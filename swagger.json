@@ -567,7 +567,7 @@
     "/patrol/user" : {
       "get" : {
         "tags" : [ "user" ],
-        "summary" : "巡更人员列表",
+        "summary" : "获取巡更人员列表",
         "description" : "获取巡更人员列表",
         "parameters" : [ {
           "name" : "orgId",
