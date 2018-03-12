@@ -122,7 +122,7 @@
           "description" : "任务数据",
           "required" : true,
           "schema" : {
-            "$ref" : "#/definitions/Task"
+            "$ref" : "#/definitions/TaskForm"
           }
         } ],
         "responses" : {
@@ -159,19 +159,16 @@
           "200" : {
             "description" : "删除成功",
             "schema" : {
-              "type" : "object",
-              "properties" : {
-                "success" : {
-                  "type" : "boolean",
-                  "default" : true
-                },
-                "result" : {
-                  "type" : "array",
-                  "items" : {
-                    "type" : "string"
-                  }
-                }
+              "type" : "array",
+              "items" : {
+                "type" : "string"
               }
+            }
+          },
+          "500" : {
+            "description" : "服务端错误",
+            "schema" : {
+              "$ref" : "#/definitions/Error500"
             }
           }
         }
@@ -192,12 +189,18 @@
           "name" : "body",
           "in" : "body",
           "schema" : {
-            "$ref" : "#/definitions/Task"
+            "$ref" : "#/definitions/TaskForm"
           }
         } ],
         "responses" : {
           "200" : {
             "description" : "修改成功"
+          },
+          "500" : {
+            "description" : "服务端错误",
+            "schema" : {
+              "$ref" : "#/definitions/Error500"
+            }
           }
         }
       },
@@ -214,6 +217,12 @@
         "responses" : {
           "200" : {
             "description" : "删除成功"
+          },
+          "500" : {
+            "description" : "服务端错误",
+            "schema" : {
+              "$ref" : "#/definitions/Error500"
+            }
           }
         }
       }
@@ -224,15 +233,15 @@
         "summary" : "获取记录列表",
         "description" : "获取记录列表",
         "parameters" : [ {
-          "name" : "X-BSC-CUR",
+          "name" : "page",
           "in" : "query",
-          "description" : "当前页码",
-          "type" : "integer"
+          "description" : "请求页码",
+          "type" : "number"
         }, {
-          "name" : "X-BSC-LIMIT",
+          "name" : "limit",
           "in" : "query",
           "description" : "每页数量",
-          "type" : "integer"
+          "type" : "number"
         }, {
           "name" : "name",
           "type" : "string",
@@ -245,14 +254,12 @@
           "in" : "query"
         }, {
           "name" : "startTime",
-          "type" : "string",
-          "format" : "date-time",
+          "type" : "number",
           "description" : "开始时间",
           "in" : "query"
         }, {
           "name" : "endTime",
-          "type" : "string",
-          "format" : "date-time",
+          "type" : "number",
           "description" : "结束时间",
           "in" : "query"
         } ],
@@ -261,7 +268,7 @@
             "description" : "查询结果",
             "headers" : {
               "X-BSC-PAGES" : {
-                "type" : "integer",
+                "type" : "number",
                 "description" : "总页数"
               },
               "X-BSC-COUNTS" : {
@@ -269,28 +276,25 @@
                 "description" : "总数"
               },
               "X-BSC-CUR" : {
-                "type" : "integer",
+                "type" : "number",
                 "description" : "当前页"
               },
               "X-BSC-LIMIT" : {
-                "type" : "integer",
+                "type" : "number",
                 "description" : "每页数量"
               }
             },
             "schema" : {
-              "type" : "object",
-              "properties" : {
-                "success" : {
-                  "type" : "boolean",
-                  "default" : true
-                },
-                "result" : {
-                  "type" : "array",
-                  "items" : {
-                    "$ref" : "#/definitions/Record"
-                  }
-                }
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/Record"
               }
+            }
+          },
+          "500" : {
+            "description" : "服务端错误",
+            "schema" : {
+              "$ref" : "#/definitions/Error500"
             }
           }
         }
@@ -309,19 +313,16 @@
           "200" : {
             "description" : "删除成功",
             "schema" : {
-              "type" : "object",
-              "properties" : {
-                "success" : {
-                  "type" : "boolean",
-                  "default" : true
-                },
-                "result" : {
-                  "type" : "array",
-                  "items" : {
-                    "type" : "string"
-                  }
-                }
+              "type" : "array",
+              "items" : {
+                "type" : "string"
               }
+            }
+          },
+          "500" : {
+            "description" : "服务端错误",
+            "schema" : {
+              "$ref" : "#/definitions/Error500"
             }
           }
         }
@@ -371,6 +372,12 @@
                 }
               }
             }
+          },
+          "500" : {
+            "description" : "服务端错误",
+            "schema" : {
+              "$ref" : "#/definitions/Error500"
+            }
           }
         }
       }
@@ -381,15 +388,15 @@
         "description" : "获取消息列表",
         "summary" : "获取消息列表",
         "parameters" : [ {
-          "name" : "X-BSC-CUR",
+          "name" : "page",
           "type" : "integer",
           "description" : "第几页",
-          "in" : "header"
+          "in" : "query"
         }, {
-          "name" : "X-BSC-LIMIT",
+          "name" : "limit",
           "type" : "integer",
           "description" : "每页数量",
-          "in" : "header"
+          "in" : "query"
         }, {
           "name" : "title",
           "type" : "string",
@@ -402,20 +409,17 @@
           "in" : "query"
         }, {
           "name" : "date",
-          "type" : "string",
-          "format" : "date",
+          "type" : "number",
           "description" : "日期",
           "in" : "query"
         }, {
           "name" : "startTime",
-          "type" : "string",
-          "format" : "time",
+          "type" : "number",
           "description" : "开始时间",
           "in" : "query"
         }, {
           "name" : "endTime",
-          "type" : "string",
-          "format" : "time",
+          "type" : "number",
           "description" : "结束时间",
           "in" : "query"
         }, {
@@ -447,19 +451,16 @@
               }
             },
             "schema" : {
-              "type" : "object",
-              "properties" : {
-                "sucess" : {
-                  "type" : "boolean",
-                  "default" : true
-                },
-                "result" : {
-                  "type" : "array",
-                  "items" : {
-                    "$ref" : "#/definitions/Message"
-                  }
-                }
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/Message"
               }
+            }
+          },
+          "500" : {
+            "description" : "服务端错误",
+            "schema" : {
+              "$ref" : "#/definitions/Error500"
             }
           }
         }
@@ -474,7 +475,7 @@
           "description" : "消息数据",
           "required" : true,
           "schema" : {
-            "$ref" : "#/definitions/Message"
+            "$ref" : "#/definitions/MessageForm"
           }
         } ],
         "responses" : {
@@ -485,6 +486,12 @@
                 "type" : "string",
                 "description" : "/patrol/message/id"
               }
+            }
+          },
+          "500" : {
+            "description" : "服务端错误",
+            "schema" : {
+              "$ref" : "#/definitions/Error500"
             }
           }
         }
@@ -505,21 +512,17 @@
           "200" : {
             "description" : "OK",
             "schema" : {
-              "type" : "object",
-              "properties" : {
-                "success" : {
-                  "type" : "boolean",
-                  "default" : true,
-                  "description" : "删除成功"
-                },
-                "result" : {
-                  "type" : "array",
-                  "description" : "已删除id集合",
-                  "items" : {
-                    "type" : "string"
-                  }
-                }
+              "type" : "array",
+              "description" : "已删除id集合",
+              "items" : {
+                "type" : "string"
               }
+            }
+          },
+          "500" : {
+            "description" : "服务端错误",
+            "schema" : {
+              "$ref" : "#/definitions/Error500"
             }
           }
         }
@@ -540,16 +543,13 @@
           "200" : {
             "description" : "OK",
             "schema" : {
-              "type" : "object",
-              "properties" : {
-                "success" : {
-                  "type" : "boolean",
-                  "default" : true
-                },
-                "result" : {
-                  "$ref" : "#/definitions/Messageinfo"
-                }
-              }
+              "$ref" : "#/definitions/Messageinfo"
+            }
+          },
+          "500" : {
+            "description" : "服务端错误",
+            "schema" : {
+              "$ref" : "#/definitions/Error500"
             }
           }
         }
@@ -566,33 +566,30 @@
           "type" : "string",
           "description" : "机构ID"
         }, {
-          "name" : "x-bsc-cur",
+          "name" : "page",
           "type" : "integer",
-          "in" : "header",
-          "description" : "请求页面"
+          "in" : "query",
+          "description" : "请求页码"
         }, {
-          "name" : "x-bsc-limit",
+          "name" : "limit",
           "type" : "integer",
-          "in" : "header",
+          "in" : "query",
           "description" : "每页数量"
         } ],
         "responses" : {
           "200" : {
             "description" : "OK",
             "schema" : {
-              "type" : "object",
-              "properties" : {
-                "success" : {
-                  "type" : "boolean",
-                  "default" : true
-                },
-                "result" : {
-                  "type" : "array",
-                  "items" : {
-                    "$ref" : "#/definitions/userPatrol"
-                  }
-                }
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/userPatrol"
               }
+            }
+          },
+          "500" : {
+            "description" : "服务端错误",
+            "schema" : {
+              "$ref" : "#/definitions/Error500"
             }
           }
         }
@@ -613,19 +610,16 @@
           "200" : {
             "description" : "OK",
             "schema" : {
-              "type" : "object",
-              "properties" : {
-                "success" : {
-                  "type" : "boolean",
-                  "default" : true
-                },
-                "result" : {
-                  "type" : "array",
-                  "items" : {
-                    "$ref" : "#/definitions/UserInfo"
-                  }
-                }
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/UserInfo"
               }
+            }
+          },
+          "500" : {
+            "description" : "服务端错误",
+            "schema" : {
+              "$ref" : "#/definitions/Error500"
             }
           }
         }
@@ -633,10 +627,75 @@
     }
   },
   "definitions" : {
+    "TaskForm" : {
+      "type" : "object",
+      "description" : "任务数据",
+      "properties" : {
+        "taskTitle" : {
+          "type" : "string",
+          "description" : "任务名称"
+        },
+        "taskType" : {
+          "type" : "string",
+          "description" : "任务类型"
+        },
+        "org" : {
+          "type" : "string",
+          "description" : "所属机构"
+        },
+        "userName" : {
+          "type" : "string",
+          "description" : "巡更人"
+        },
+        "startTime" : {
+          "type" : "number",
+          "description" : "开始时间"
+        },
+        "endTime" : {
+          "type" : "number",
+          "description" : "结束时间"
+        },
+        "rangTime" : {
+          "type" : "number",
+          "minimum" : 1,
+          "maximum" : 60,
+          "default" : 1
+        },
+        "points" : {
+          "type" : "array",
+          "items" : {
+            "type" : "object",
+            "description" : "点位数据",
+            "properties" : {
+              "pointId" : {
+                "type" : "string",
+                "description" : "点位id"
+              },
+              "geo" : {
+                "type" : "string",
+                "description" : "点位坐标"
+              },
+              "pointName" : {
+                "type" : "string",
+                "description" : "点位名称"
+              },
+              "patrolTime" : {
+                "type" : "number",
+                "description" : "巡逻时间"
+              }
+            }
+          }
+        }
+      }
+    },
     "Task" : {
       "type" : "object",
       "description" : "任务数据",
       "properties" : {
+        "_id" : {
+          "type" : "string",
+          "description" : "任务Id"
+        },
         "taskTitle" : {
           "type" : "string",
           "description" : "任务名称"
@@ -753,6 +812,10 @@
           "type" : "string",
           "description" : "点位名称"
         },
+        "geo" : {
+          "type" : "string",
+          "description" : "点位位置坐标"
+        },
         "time" : {
           "type" : "string",
           "format" : "date-time",
@@ -761,6 +824,40 @@
         "status" : {
           "type" : "string",
           "description" : "点位巡更状态"
+        }
+      }
+    },
+    "MessageForm" : {
+      "type" : "object",
+      "description" : "消息数据",
+      "properties" : {
+        "sender" : {
+          "type" : "string",
+          "description" : "发件人"
+        },
+        "senderImg" : {
+          "type" : "string",
+          "description" : "发件人照片"
+        },
+        "title" : {
+          "type" : "string",
+          "description" : "消息标题"
+        },
+        "content" : {
+          "type" : "string",
+          "description" : "消息内容"
+        },
+        "receiver" : {
+          "type" : "array",
+          "description" : "消息收件人",
+          "items" : {
+            "type" : "string"
+          }
+        },
+        "creatTime" : {
+          "type" : "string",
+          "format" : "date-time",
+          "description" : "创建时间"
         }
       }
     },
