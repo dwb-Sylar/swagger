@@ -38,12 +38,12 @@
         "summary" : "获取任务列表",
         "produces" : [ "application/json" ],
         "parameters" : [ {
-          "name" : "X-BSC-CUR",
+          "name" : "page",
           "in" : "query",
-          "description" : "当前页码",
+          "description" : "请求页码",
           "type" : "number"
         }, {
-          "name" : "X-BSC-LIMIT",
+          "name" : "limit",
           "in" : "query",
           "description" : "每页数量",
           "type" : "number"
@@ -98,18 +98,9 @@
               }
             },
             "schema" : {
-              "type" : "object",
-              "properties" : {
-                "success" : {
-                  "type" : "boolean",
-                  "default" : true
-                },
-                "result" : {
-                  "type" : "array",
-                  "items" : {
-                    "$ref" : "#/definitions/Task"
-                  }
-                }
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/Task"
               }
             }
           },
@@ -646,10 +637,6 @@
       "type" : "object",
       "description" : "任务数据",
       "properties" : {
-        "_id" : {
-          "type" : "string",
-          "description" : "任务Id"
-        },
         "taskTitle" : {
           "type" : "string",
           "description" : "任务名称"
@@ -667,13 +654,11 @@
           "description" : "巡更人"
         },
         "startTime" : {
-          "type" : "string",
-          "format" : "date-time",
+          "type" : "number",
           "description" : "开始时间"
         },
         "endTime" : {
-          "type" : "string",
-          "format" : "date-time",
+          "type" : "number",
           "description" : "结束时间"
         },
         "rangTime" : {
@@ -692,13 +677,16 @@
                 "type" : "string",
                 "description" : "点位id"
               },
+              "geo" : {
+                "type" : "string",
+                "description" : "点位坐标"
+              },
               "pointName" : {
                 "type" : "string",
                 "description" : "点位名称"
               },
               "patrolTime" : {
-                "type" : "string",
-                "format" : "date-time",
+                "type" : "number",
                 "description" : "巡逻时间"
               }
             }
