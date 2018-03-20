@@ -416,19 +416,14 @@
           "description" : "机构",
           "in" : "query"
         }, {
-          "name" : "date",
-          "type" : "number",
-          "description" : "日期",
-          "in" : "query"
-        }, {
           "name" : "startTime",
           "type" : "number",
-          "description" : "开始时间",
+          "description" : "开始日期",
           "in" : "query"
         }, {
           "name" : "endTime",
           "type" : "number",
-          "description" : "结束时间",
+          "description" : "结束日期",
           "in" : "query"
         }, {
           "name" : "sender",
