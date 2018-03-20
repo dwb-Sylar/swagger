@@ -970,10 +970,20 @@
           "type" : "array",
           "description" : "消息收件人",
           "items" : {
-            "type" : "string"
+            "type" : "object",
+            "properties" : {
+              "userId" : {
+                "type" : "string",
+                "description" : "人员ID"
+              },
+              "realName" : {
+                "type" : "string",
+                "description" : "人员名字"
+              }
+            }
           }
         },
-        "creatTime" : {
+        "createdAt" : {
           "type" : "string",
           "format" : "date-time",
           "description" : "创建时间"
