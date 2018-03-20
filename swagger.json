@@ -98,9 +98,14 @@
               }
             },
             "schema" : {
-              "type" : "array",
-              "items" : {
-                "$ref" : "#/definitions/Task"
+              "type" : "object",
+              "properties" : {
+                "results" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/definitions/Task"
+                  }
+                }
               }
             }
           },
