@@ -65,7 +65,7 @@
           "description" : "结束时间",
           "in" : "query"
         }, {
-          "name" : "userName",
+          "name" : "realName",
           "type" : "string",
           "format" : "uri",
           "description" : "巡更人",
@@ -643,7 +643,11 @@
           "type" : "string",
           "description" : "所属机构"
         },
-        "userName" : {
+        "userId" : {
+          "type" : "string",
+          "description" : "巡更人Id"
+        },
+        "realName" : {
           "type" : "string",
           "description" : "巡更人"
         },
@@ -657,6 +661,7 @@
         },
         "rangTime" : {
           "type" : "number",
+          "description" : "浮动时间",
           "minimum" : 1,
           "maximum" : 60,
           "default" : 1
@@ -704,9 +709,17 @@
           "type" : "string",
           "description" : "任务类型"
         },
+        "orgName" : {
+          "type" : "string",
+          "description" : "机构名称"
+        },
         "org" : {
           "type" : "string",
-          "description" : "所属机构"
+          "description" : "机构Id"
+        },
+        "userId" : {
+          "type" : "string",
+          "description" : "巡更人Id"
         },
         "userName" : {
           "type" : "string",
@@ -765,9 +778,13 @@
           "type" : "string",
           "description" : "任务名称"
         },
-        "org" : {
+        "orgName" : {
           "type" : "string",
           "description" : "机构名称"
+        },
+        "org" : {
+          "type" : "string",
+          "description" : "机构id"
         },
         "userName" : {
           "type" : "string",
