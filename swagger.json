@@ -138,6 +138,9 @@
                 "type" : "string",
                 "description" : "/patrol/task/{id}"
               }
+            },
+            "schema" : {
+              "type" : "string"
             }
           },
           "500" : {
