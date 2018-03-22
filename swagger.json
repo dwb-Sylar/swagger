@@ -538,10 +538,14 @@
           "200" : {
             "description" : "OK",
             "schema" : {
-              "type" : "array",
-              "description" : "已删除id集合",
-              "items" : {
-                "type" : "string"
+              "type" : "object",
+              "properties" : {
+                "ok" : {
+                  "type" : "string"
+                },
+                "n" : {
+                  "type" : "string"
+                }
               }
             }
           },
