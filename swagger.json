@@ -921,6 +921,10 @@
           "type" : "string",
           "description" : "消息内容"
         },
+        "point" : {
+          "type" : "string",
+          "description" : "巡更点位"
+        },
         "receiver" : {
           "type" : "array",
           "description" : "消息收件人",
