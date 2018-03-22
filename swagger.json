@@ -897,6 +897,10 @@
       "type" : "object",
       "description" : "消息数据",
       "properties" : {
+        "_id" : {
+          "type" : "string",
+          "description" : "消息id"
+        },
         "sender" : {
           "type" : "string",
           "description" : "发件人"
