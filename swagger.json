@@ -1104,6 +1104,13 @@
               }
             }
           }
+        },
+        "msgList" : {
+          "type" : "array",
+          "description" : "任务消息",
+          "items" : {
+            "$ref" : "#/definitions/Messageinfo"
+          }
         }
       }
     },
