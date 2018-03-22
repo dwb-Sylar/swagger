@@ -682,10 +682,6 @@
                 "type" : "string",
                 "description" : "点位id"
               },
-              "geo" : {
-                "type" : "string",
-                "description" : "点位坐标"
-              },
               "pointName" : {
                 "type" : "string",
                 "description" : "点位名称"
