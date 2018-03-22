@@ -992,7 +992,8 @@
           "description" : "消息截图"
         },
         "messageRts" : {
-          "type" : "string"
+          "type" : "string",
+          "description" : "消息视频"
         }
       }
     },
