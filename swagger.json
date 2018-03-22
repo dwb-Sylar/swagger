@@ -167,9 +167,14 @@
           "200" : {
             "description" : "删除成功",
             "schema" : {
-              "type" : "array",
-              "items" : {
-                "type" : "string"
+              "type" : "object",
+              "properties" : {
+                "ok" : {
+                  "type" : "string"
+                },
+                "n" : {
+                  "type" : "string"
+                }
               }
             }
           },
@@ -251,12 +256,12 @@
           "description" : "每页数量",
           "type" : "number"
         }, {
-          "name" : "name",
+          "name" : "taskTitle",
           "type" : "string",
           "description" : "任务名称",
           "in" : "query"
         }, {
-          "name" : "userName",
+          "name" : "realName",
           "type" : "string",
           "format" : "uri",
           "in" : "query"
@@ -293,9 +298,14 @@
               }
             },
             "schema" : {
-              "type" : "array",
-              "items" : {
-                "$ref" : "#/definitions/Record"
+              "type" : "object",
+              "properties" : {
+                "results" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/definitions/Record"
+                  }
+                }
               }
             }
           },
@@ -321,9 +331,14 @@
           "200" : {
             "description" : "删除成功",
             "schema" : {
-              "type" : "array",
-              "items" : {
-                "type" : "string"
+              "type" : "object",
+              "properties" : {
+                "ok" : {
+                  "type" : "string"
+                },
+                "n" : {
+                  "type" : "string"
+                }
               }
             }
           },
@@ -353,12 +368,12 @@
             "schema" : {
               "type" : "object",
               "properties" : {
-                "userName" : {
+                "realName" : {
                   "type" : "string",
                   "format" : "uri",
                   "description" : "巡更人员名字"
                 },
-                "userImg" : {
+                "photo" : {
                   "type" : "string",
                   "description" : "巡更人员照片"
                 },
@@ -366,7 +381,7 @@
                   "type" : "string",
                   "description" : "任务名称"
                 },
-                "taskStatus" : {
+                "precentage" : {
                   "type" : "integer",
                   "minimum" : 1,
                   "maximum" : 100,
@@ -454,9 +469,14 @@
               }
             },
             "schema" : {
-              "type" : "array",
-              "items" : {
-                "$ref" : "#/definitions/Message"
+              "type" : "object",
+              "properties" : {
+                "results" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/definitions/Message"
+                  }
+                }
               }
             }
           },
@@ -819,17 +839,9 @@
       "type" : "object",
       "description" : "点位详细信息",
       "properties" : {
-        "_id" : {
-          "type" : "string",
-          "description" : "点位id"
-        },
-        "name" : {
+        "pointName" : {
           "type" : "string",
           "description" : "点位名称"
-        },
-        "geo" : {
-          "type" : "string",
-          "description" : "点位位置坐标"
         },
         "time" : {
           "type" : "string",
@@ -878,11 +890,6 @@
               }
             }
           }
-        },
-        "creatTime" : {
-          "type" : "string",
-          "format" : "date-time",
-          "description" : "创建时间"
         }
       }
     },
@@ -890,10 +897,6 @@
       "type" : "object",
       "description" : "消息数据",
       "properties" : {
-        "_id" : {
-          "type" : "string",
-          "description" : "消息id"
-        },
         "sender" : {
           "type" : "string",
           "description" : "发件人"
@@ -927,7 +930,7 @@
             }
           }
         },
-        "creatTime" : {
+        "createdAt" : {
           "type" : "string",
           "format" : "date-time",
           "description" : "创建时间"
