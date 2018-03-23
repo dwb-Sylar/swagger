@@ -610,9 +610,14 @@
           "200" : {
             "description" : "OK",
             "schema" : {
-              "type" : "array",
-              "items" : {
-                "$ref" : "#/definitions/userPatrol"
+              "type" : "object",
+              "properties" : {
+                "results" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/definitions/userPatrol"
+                  }
+                }
               }
             }
           },
