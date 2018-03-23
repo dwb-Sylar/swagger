@@ -701,6 +701,27 @@
           }
         }
       }
+    },
+    "/patrol/taskMsg/{id}" : {
+      "get" : {
+        "tags" : [ "user" ],
+        "summary" : "获取巡更任务相关消息",
+        "description" : "获取巡更任务相关消息",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "schema" : {
+              "$ref" : "#/definitions/Message"
+            }
+          }
+        }
+      }
     }
   },
   "definitions" : {
