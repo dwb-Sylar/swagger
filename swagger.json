@@ -653,14 +653,14 @@
         }
       }
     },
-    "/patrol/userTask/{id}" : {
+    "/patrol/userTask" : {
       "get" : {
         "tags" : [ "user" ],
         "summary" : "获取人员任务列表",
         "description" : "获取人员任务列表",
         "parameters" : [ {
-          "name" : "id",
-          "in" : "path",
+          "name" : "userId",
+          "in" : "query",
           "type" : "string",
           "required" : true
         }, {
