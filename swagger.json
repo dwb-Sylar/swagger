@@ -634,16 +634,14 @@
           "name" : "id",
           "in" : "path",
           "type" : "string",
-          "required" : true
+          "required" : true,
+          "description" : "任务id"
         } ],
         "responses" : {
           "200" : {
             "description" : "OK",
             "schema" : {
-              "type" : "array",
-              "items" : {
-                "$ref" : "#/definitions/UserInfo"
-              }
+              "$ref" : "#/definitions/UserInfo"
             }
           },
           "500" : {
@@ -686,7 +684,7 @@
                         "type" : "string",
                         "description" : "任务名称"
                       },
-                      "_id" : {
+                      "taskId" : {
                         "type" : "string",
                         "description" : "任务id"
                       }
@@ -1105,21 +1103,21 @@
     },
     "UserInfo" : {
       "type" : "object",
-      "description" : "人员巡更详情",
+      "description" : "巡更任务详情",
       "properties" : {
-        "_id" : {
+        "taskId" : {
           "type" : "string",
           "description" : "任务id"
         },
-        "userName" : {
+        "realName" : {
           "type" : "string",
           "description" : "人员名字"
         },
-        "userImg" : {
+        "photo" : {
           "type" : "string",
           "description" : "人员照片"
         },
-        "taskStatus" : {
+        "precentage" : {
           "type" : "integer",
           "description" : "任务状态"
         },
@@ -1130,6 +1128,12 @@
         "taskType" : {
           "type" : "string",
           "description" : "任务模式"
+        },
+        "startTime" : {
+          "type" : "string"
+        },
+        "endTime" : {
+          "type" : "string"
         },
         "pointList" : {
           "type" : "array",
