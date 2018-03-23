@@ -692,10 +692,6 @@
                       "taskId" : {
                         "type" : "number",
                         "description" : "任务id"
-                      },
-                      "userId" : {
-                        "type" : "number",
-                        "description" : "人员"
                       }
                     }
                   }
