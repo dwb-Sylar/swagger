@@ -871,7 +871,7 @@
           "format" : "date-time",
           "description" : "结束时间"
         },
-        "taskStatus" : {
+        "precentage" : {
           "type" : "number",
           "minimum" : 0,
           "maximum" : 100,
@@ -1053,15 +1053,23 @@
       "type" : "object",
       "description" : "人员巡更情况",
       "properties" : {
-        "userName" : {
+        "taskId" : {
+          "type" : "string",
+          "description" : "当前任务Id"
+        },
+        "userId" : {
+          "type" : "string",
+          "description" : "人员Id"
+        },
+        "realName" : {
           "type" : "string",
           "description" : "人员姓名"
         },
-        "userImg" : {
+        "photo" : {
           "type" : "string",
           "description" : "人员头像照片"
         },
-        "taskStatus" : {
+        "precentage" : {
           "type" : "integer",
           "description" : "巡更任务状态"
         },
@@ -1074,7 +1082,7 @@
           "description" : "下个巡更点位"
         },
         "devStatus" : {
-          "type" : "string",
+          "type" : "number",
           "description" : "设备状态"
         },
         "msgCount" : {
