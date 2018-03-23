@@ -690,8 +690,12 @@
                         "description" : "任务名称"
                       },
                       "taskId" : {
-                        "type" : "string",
+                        "type" : "number",
                         "description" : "任务id"
+                      },
+                      "userId" : {
+                        "type" : "number",
+                        "description" : "人员"
                       }
                     }
                   }
